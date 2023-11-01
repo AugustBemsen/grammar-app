@@ -1,12 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   View,
   Text,
   StyleSheet,
   TouchableOpacity,
   StatusBar,
+  Pressable,
 } from "react-native";
-import { useRouter } from "expo-router";
 import {
   useFonts,
   Poppins_400Regular,
@@ -14,12 +14,13 @@ import {
   Poppins_700Bold,
 } from "@expo-google-fonts/poppins";
 
-import Ziya from "../assets/svgs/ziya";
 import colors from "../lib/colors";
-import Arrows from "../assets/svgs/arrows";
+import Circles from "../assets/svgs/circles";
+import AppInput from "../components/Input";
 
 const WelcomeScreen = () => {
-  const router = useRouter();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   let [fontsLoaded] = useFonts({
     Poppins_400Regular,
     Poppins_500Medium,
@@ -32,18 +33,29 @@ const WelcomeScreen = () => {
 
   return (
     <View style={styles.container}>
-      <Arrows style={styles.arrow} />
-      <Ziya />
-      <Text style={styles.title}>Hello, I’m Ziya</Text>
-      <Text style={styles.subtitle}>
-        Your Instant Grammar Guru: Perfecting Your Text, One Error at a Time
-      </Text>
-      <TouchableOpacity
-        style={styles.button}
-        onPress={() => router.replace("Login")}
-      >
+      <Circles style={styles.circles} />
+      <Text style={styles.title}>Welcome, Login</Text>
+      <Text style={styles.subtitle}>Where Grammatical Magic Happens.</Text>
+
+      <AppInput
+        label="Email"
+        value={email}
+        setValue={setEmail}
+        keyboardType="email-address"
+      />
+      <AppInput
+        label="Password"
+        isPassword
+        value={password}
+        setValue={setPassword}
+      />
+
+      <TouchableOpacity style={styles.button}>
         <Text style={styles.buttonText}>Get Started</Text>
       </TouchableOpacity>
+      <Text style={styles.ctaText}>
+        Don't have an account? <Text style={styles.ctaSpan}> Create One</Text>
+      </Text>
       <StatusBar />
     </View>
   );
@@ -52,29 +64,34 @@ const WelcomeScreen = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: "center",
     alignItems: "center",
+    justifyContent: "center",
     backgroundColor: colors.black,
     position: "relative",
+    paddingHorizontal: 30,
   },
-  arrow: {
+  circles: {
     position: "absolute",
-    top: -10,
-    right: -10,
+    bottom: -30,
+    right: 16,
+    width: "100%",
+    opacity: 0.9,
   },
   title: {
     fontSize: 30,
     marginTop: 20,
     color: colors.white,
     fontFamily: "Poppins_700Bold",
+    alignSelf: "flex-start",
   },
   subtitle: {
     fontSize: 16,
     marginTop: 4,
-    width: "70%",
-    textAlign: "center",
+    width: "75%",
     fontFamily: "Poppins_500Medium",
     color: colors.white,
+    alignSelf: "flex-start",
+    marginBottom: 40,
     opacity: 0.8,
   },
   button: {
@@ -83,11 +100,24 @@ const styles = StyleSheet.create({
     paddingHorizontal: 24,
     borderRadius: 8,
     marginTop: 30,
+    alignItems: "center",
+    justifyContent: "center",
+    width: "60%",
   },
   buttonText: {
     fontSize: 18,
     color: colors.white,
     fontFamily: "Poppins_700Bold",
+  },
+
+  ctaText: {
+    color: colors.white,
+    fontFamily: "Poppins_700Bold",
+    marginTop: 25,
+  },
+
+  ctaSpan: {
+    color: colors.green100,
   },
 });
 
