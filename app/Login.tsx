@@ -12,7 +12,7 @@ import colors from "../lib/colors";
 import Circles from "../assets/svgs/circles";
 import AppInput from "../components/Input";
 
-const WelcomeScreen = () => {
+const LoginScreen = () => {
   const router = useRouter();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -36,7 +36,10 @@ const WelcomeScreen = () => {
         setValue={setPassword}
       />
 
-      <TouchableOpacity style={styles.button}>
+      <TouchableOpacity
+        style={styles.button}
+        onPress={() => router.replace("Chat")}
+      >
         <Text style={styles.buttonText}>Get In</Text>
       </TouchableOpacity>
       <Text style={styles.ctaText}>
@@ -111,4 +114,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default WelcomeScreen;
+export default LoginScreen;

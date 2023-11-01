@@ -7,12 +7,6 @@ import {
   StatusBar,
 } from "react-native";
 import { useRouter } from "expo-router";
-import {
-  useFonts,
-  Poppins_400Regular,
-  Poppins_500Medium,
-  Poppins_700Bold,
-} from "@expo-google-fonts/poppins";
 
 import Ziya from "../assets/svgs/ziya";
 import colors from "../lib/colors";
@@ -20,16 +14,6 @@ import Arrows from "../assets/svgs/arrows";
 
 const WelcomeScreen = () => {
   const router = useRouter();
-  let [fontsLoaded] = useFonts({
-    Poppins_400Regular,
-    Poppins_500Medium,
-    Poppins_700Bold,
-  });
-
-  if (!fontsLoaded) {
-    return null;
-  }
-
   return (
     <View style={styles.container}>
       <Arrows style={styles.arrow} />

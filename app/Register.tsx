@@ -12,7 +12,7 @@ import colors from "../lib/colors";
 import Circles from "../assets/svgs/circles";
 import AppInput from "../components/Input";
 
-const WelcomeScreen = () => {
+const RegisterScreen = () => {
   const router = useRouter();
   const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
@@ -114,4 +114,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default WelcomeScreen;
+export default RegisterScreen;
