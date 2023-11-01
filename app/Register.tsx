@@ -14,14 +14,17 @@ import AppInput from "../components/Input";
 
 const WelcomeScreen = () => {
   const router = useRouter();
+  const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   return (
     <View style={styles.container}>
       <Circles style={styles.circles} />
-      <Text style={styles.title}>Welcome, Login</Text>
-      <Text style={styles.subtitle}>Where Grammatical Magic Happens.</Text>
+      <Text style={styles.title}>Create Your Account</Text>
+      <Text style={styles.subtitle}>Your Grammar Journey Begins Here.</Text>
+
+      <AppInput label="Full Name" value={fullName} setValue={setFullName} />
 
       <AppInput
         label="Email"
@@ -29,21 +32,21 @@ const WelcomeScreen = () => {
         setValue={setEmail}
         keyboardType="email-address"
       />
+
       <AppInput
         label="Password"
         isPassword
         value={password}
         setValue={setPassword}
       />
-
       <TouchableOpacity style={styles.button}>
-        <Text style={styles.buttonText}>Get In</Text>
+        <Text style={styles.buttonText}>Get Started</Text>
       </TouchableOpacity>
       <Text style={styles.ctaText}>
-        Don't have an account?{" "}
-        <Text onPress={() => router.replace("Register")} style={styles.ctaSpan}>
+        Already have an account?{" "}
+        <Text onPress={() => router.replace("Login")} style={styles.ctaSpan}>
           {" "}
-          Create One
+          Get back
         </Text>
       </Text>
       <StatusBar />
@@ -76,12 +79,11 @@ const styles = StyleSheet.create({
   },
   subtitle: {
     fontSize: 16,
-    marginTop: 4,
     width: "75%",
     fontFamily: "Poppins_500Medium",
     color: colors.white,
     alignSelf: "flex-start",
-    marginBottom: 40,
+    marginBottom: 30,
     opacity: 0.8,
   },
   button: {
@@ -89,7 +91,7 @@ const styles = StyleSheet.create({
     paddingVertical: 12,
     paddingHorizontal: 24,
     borderRadius: 8,
-    marginTop: 30,
+    marginTop: 20,
     alignItems: "center",
     justifyContent: "center",
     width: "60%",
@@ -104,6 +106,7 @@ const styles = StyleSheet.create({
     color: colors.white,
     fontFamily: "Poppins_700Bold",
     marginTop: 25,
+    textAlign: "center",
   },
 
   ctaSpan: {
