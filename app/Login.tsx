@@ -25,6 +25,8 @@ const LoginScreen = () => {
   const [isLoading, setIsLoading] = useState(false);
 
   const handleSubmit = () => {
+    Keyboard.dismiss();
+
     if (email && password) {
       setIsLoading(true);
 

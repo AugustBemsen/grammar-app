@@ -57,6 +57,7 @@ const RegisterScreen = () => {
   }, [fullName]);
 
   const handleSubmit = () => {
+    Keyboard.dismiss();
     if (fullName && email && password) {
       setIsLoading(true);
 
@@ -71,7 +72,6 @@ const RegisterScreen = () => {
         .then((res) => {
           Toast.show({
             text1: "Account created! you can now login",
-            type: "error",
           });
           router.replace("Login");
           setIsLoading(false);
