@@ -7,15 +7,54 @@ import {
   StatusBar,
 } from "react-native";
 import { useRouter } from "expo-router";
+import Toast from "react-native-toast-message";
 
 import colors from "../lib/colors";
 import Circles from "../assets/svgs/circles";
 import AppInput from "../components/Input";
+import axios from "axios";
+// @ts-ignore
+import { SERVER_URL } from "@env";
+import AppButton from "../components/Button";
 
 const LoginScreen = () => {
   const router = useRouter();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+
+  const handleSubmit = () => {
+    if (email && password) {
+      setIsLoading(true);
+
+      axios
+        .post(`${SERVER_URL}auth/login`, { email, password })
+        .then((res) => {
+          router.replace("Chat");
+          setIsLoading(false);
+        })
+        .catch((err) => {
+          setIsLoading(false);
+
+          if (err.response) {
+            Toast.show({
+              text1: err?.response?.data?.message || "Something went wrong",
+              type: "error",
+            });
+          } else {
+            Toast.show({
+              text1: "Network Error...",
+              type: "error",
+            });
+          }
+        });
+    } else {
+      Toast.show({
+        text1: "Kindly fill out all felids",
+        type: "error",
+      });
+    }
+  };
 
   return (
     <View style={styles.container}>
@@ -36,12 +75,7 @@ const LoginScreen = () => {
         setValue={setPassword}
       />
 
-      <TouchableOpacity
-        style={styles.button}
-        onPress={() => router.replace("Chat")}
-      >
-        <Text style={styles.buttonText}>Get In</Text>
-      </TouchableOpacity>
+      <AppButton onPress={handleSubmit} label="Get In" loading={isLoading} />
       <Text style={styles.ctaText}>
         Don't have an account?{" "}
         <Text onPress={() => router.replace("Register")} style={styles.ctaSpan}>
@@ -86,21 +120,6 @@ const styles = StyleSheet.create({
     alignSelf: "flex-start",
     marginBottom: 40,
     opacity: 0.8,
-  },
-  button: {
-    backgroundColor: colors.green100,
-    paddingVertical: 12,
-    paddingHorizontal: 24,
-    borderRadius: 8,
-    marginTop: 30,
-    alignItems: "center",
-    justifyContent: "center",
-    width: "60%",
-  },
-  buttonText: {
-    fontSize: 18,
-    color: colors.white,
-    fontFamily: "Poppins_700Bold",
   },
 
   ctaText: {

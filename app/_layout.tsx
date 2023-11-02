@@ -5,6 +5,7 @@ import {
   Poppins_500Medium,
   Poppins_700Bold,
 } from "@expo-google-fonts/poppins";
+import Toast from "react-native-toast-message";
 
 export default function Layout() {
   let [fontsLoaded] = useFonts({
@@ -17,12 +18,15 @@ export default function Layout() {
     return null;
   }
   return (
-    <Stack
-      screenOptions={{
-        animation: "slide_from_right",
-        autoHideHomeIndicator: true,
-        headerShown: false,
-      }}
-    />
+    <>
+      <Stack
+        screenOptions={{
+          animation: "slide_from_right",
+          autoHideHomeIndicator: true,
+          headerShown: false,
+        }}
+      />
+      <Toast position="bottom" />
+    </>
   );
 }

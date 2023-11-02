@@ -11,6 +11,7 @@ import { useRouter } from "expo-router";
 import colors from "../lib/colors";
 import Circles from "../assets/svgs/circles";
 import AppInput from "../components/Input";
+import AppButton from "../components/Button";
 
 const RegisterScreen = () => {
   const router = useRouter();
@@ -39,9 +40,7 @@ const RegisterScreen = () => {
         value={password}
         setValue={setPassword}
       />
-      <TouchableOpacity style={styles.button}>
-        <Text style={styles.buttonText}>Get Started</Text>
-      </TouchableOpacity>
+      <AppButton label="Get Account" />
       <Text style={styles.ctaText}>
         Already have an account?{" "}
         <Text onPress={() => router.replace("Login")} style={styles.ctaSpan}>
@@ -85,21 +84,6 @@ const styles = StyleSheet.create({
     alignSelf: "flex-start",
     marginBottom: 30,
     opacity: 0.8,
-  },
-  button: {
-    backgroundColor: colors.green100,
-    paddingVertical: 12,
-    paddingHorizontal: 24,
-    borderRadius: 8,
-    marginTop: 20,
-    alignItems: "center",
-    justifyContent: "center",
-    width: "60%",
-  },
-  buttonText: {
-    fontSize: 18,
-    color: colors.white,
-    fontFamily: "Poppins_700Bold",
   },
 
   ctaText: {
