@@ -7,11 +7,14 @@ import {
   Dimensions,
   TextInput,
   FlatList,
+  TouchableWithoutFeedback,
+  Keyboard,
 } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useRouter } from "expo-router";
 import axios from "axios";
-// import { OPEN_AI_SECRET } from "@env";
+// @ts-ignore
+import { OPEN_AI_SECRET } from "@env";
 
 import colors from "../lib/colors";
 import Arrows from "../assets/svgs/arrows";
@@ -95,8 +98,7 @@ const ChatScreen = () => {
           {
             headers: {
               "Content-Type": "application/json",
-              Authorization:
-                "Bearer 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",
+              Authorization: `Bearer ${OPEN_AI_SECRET}`,
             },
           }
         )
@@ -120,41 +122,43 @@ const ChatScreen = () => {
   };
 
   return (
-    <View style={styles.container}>
-      <LogoutIcon
-        style={[styles.logout, { top: chatSafeArea + 10 }]}
-        onPress={() => router.replace("Login")}
-      />
-      <Arrows style={styles.arrow} />
-      <CenterArrow style={styles.centerArrow} />
-      <BottomArrow style={styles.bottomArrow} />
-      <FlatList
-        ref={(ref) => (chatListRef.current = ref)} // Assign the ref to the FlatList
-        onContentSizeChange={() =>
-          chatListRef.current?.scrollToEnd({ animated: true })
-        } // Automatically scroll when content size changes
-        style={[styles.chatSection, { marginTop: chatSafeArea + 16 }]}
-        data={chatMessages}
-        keyExtractor={(item: any) => item.id.toString()}
-        renderItem={({ item }) => (
-          <ChatBubble isUser={item.isUser} message={item.message} />
-        )}
-      />
-      <View style={styles.chatActions}>
-        <TextInput
-          style={styles.input}
-          placeholder="Type something..."
-          placeholderTextColor={colors.white}
-          value={userInput}
-          onChangeText={setUserInput}
+    <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
+      <View style={styles.container}>
+        <LogoutIcon
+          style={[styles.logout, { top: chatSafeArea + 10 }]}
+          onPress={() => router.replace("Login")}
         />
-        <TouchableOpacity style={styles.send} onPress={handleSendMessage}>
-          <SendIcon />
-        </TouchableOpacity>
-      </View>
+        <Arrows style={styles.arrow} />
+        <CenterArrow style={styles.centerArrow} />
+        <BottomArrow style={styles.bottomArrow} />
+        <FlatList
+          ref={(ref) => (chatListRef.current = ref)} // Assign the ref to the FlatList
+          onContentSizeChange={() =>
+            chatListRef.current?.scrollToEnd({ animated: true })
+          } // Automatically scroll when content size changes
+          style={[styles.chatSection, { marginTop: chatSafeArea + 16 }]}
+          data={chatMessages}
+          keyExtractor={(item: any) => item.id.toString()}
+          renderItem={({ item }) => (
+            <ChatBubble isUser={item.isUser} message={item.message} />
+          )}
+        />
+        <View style={styles.chatActions}>
+          <TextInput
+            style={styles.input}
+            placeholder="Type something..."
+            placeholderTextColor={colors.white}
+            value={userInput}
+            onChangeText={setUserInput}
+          />
+          <TouchableOpacity style={styles.send} onPress={handleSendMessage}>
+            <SendIcon />
+          </TouchableOpacity>
+        </View>
 
-      <StatusBar />
-    </View>
+        <StatusBar />
+      </View>
+    </TouchableWithoutFeedback>
   );
 };
 

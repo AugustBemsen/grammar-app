@@ -11,7 +11,7 @@
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
-    "scheme": "your-app-scheme",
+    "scheme": "com.danireptor.grammerapp",
     "assetBundlePatterns": [
       "**/*"
     ],
@@ -22,13 +22,22 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.danireptor.grammerapp"
     },
     "web": {
       "favicon": "./assets/favicon.png"
     },
     "plugins": [
       "expo-router"
-    ]
+    ],
+    "extra": {
+      "router": {
+        "origin": false
+      },
+      "eas": {
+        "projectId": "14d43049-ec15-4c06-94a8-19078410e751"
+      }
+    }
   }
 }

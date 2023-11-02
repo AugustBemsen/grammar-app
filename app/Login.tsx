@@ -3,7 +3,8 @@ import {
   View,
   Text,
   StyleSheet,
-  TouchableOpacity,
+  TouchableWithoutFeedback,
+  Keyboard,
   StatusBar,
 } from "react-native";
 import { useRouter } from "expo-router";
@@ -30,8 +31,11 @@ const LoginScreen = () => {
       axios
         .post(`${SERVER_URL}auth/login`, { email, password })
         .then((res) => {
-          router.replace("Chat");
           setIsLoading(false);
+          Toast.show({
+            text1: `Welcome ${res.data?.data?.user?.firstName}`,
+          });
+          router.replace("Chat");
         })
         .catch((err) => {
           setIsLoading(false);
@@ -57,34 +61,39 @@ const LoginScreen = () => {
   };
 
   return (
-    <View style={styles.container}>
-      <Circles style={styles.circles} />
-      <Text style={styles.title}>Welcome, Login</Text>
-      <Text style={styles.subtitle}>Where Grammatical Magic Happens.</Text>
+    <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
+      <View style={styles.container}>
+        <Circles style={styles.circles} />
+        <Text style={styles.title}>Welcome, Login</Text>
+        <Text style={styles.subtitle}>Where Grammatical Magic Happens.</Text>
 
-      <AppInput
-        label="Email"
-        value={email}
-        setValue={setEmail}
-        keyboardType="email-address"
-      />
-      <AppInput
-        label="Password"
-        isPassword
-        value={password}
-        setValue={setPassword}
-      />
+        <AppInput
+          label="Email"
+          value={email}
+          setValue={setEmail}
+          keyboardType="email-address"
+        />
+        <AppInput
+          label="Password"
+          isPassword
+          value={password}
+          setValue={setPassword}
+        />
 
-      <AppButton onPress={handleSubmit} label="Get In" loading={isLoading} />
-      <Text style={styles.ctaText}>
-        Don't have an account?{" "}
-        <Text onPress={() => router.replace("Register")} style={styles.ctaSpan}>
-          {" "}
-          Create One
+        <AppButton onPress={handleSubmit} label="Get In" loading={isLoading} />
+        <Text style={styles.ctaText}>
+          Don't have an account?{" "}
+          <Text
+            onPress={() => router.replace("Register")}
+            style={styles.ctaSpan}
+          >
+            {" "}
+            Create One
+          </Text>
         </Text>
-      </Text>
-      <StatusBar />
-    </View>
+        <StatusBar />
+      </View>
+    </TouchableWithoutFeedback>
   );
 };
 
