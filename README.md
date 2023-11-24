@@ -1,4 +1,4 @@
-# grammer-app
+# grammar-app
 
 ![Screenshot_1698899480](https://github.com/AugustBemsen/grammer-app/assets/54921134/697b840c-27fa-4b03-90be-2519423a100b)
 
